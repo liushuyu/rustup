@@ -19,16 +19,13 @@ curl-backend = ["download/curl-backend"]
 default = [
     "curl-backend",
     "reqwest-backend",
-    "reqwest-default-tls",
-    "reqwest-rustls-tls",
+    "reqwest-default-tls"
 ]
 
 reqwest-backend = ["download/reqwest-backend"]
 vendored-openssl = ['openssl/vendored']
 
 reqwest-default-tls = ["download/reqwest-default-tls"]
-reqwest-rustls-tls = ["download/reqwest-rustls-tls"]
-
 # Include in the default set to disable self-update and uninstall.
 no-self-update = []
 

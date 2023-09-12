@@ -8,12 +8,11 @@ version = "1.26.0"
 
 [features]
 
-default = ["reqwest-backend", "reqwest-rustls-tls", "reqwest-default-tls"]
+default = ["reqwest-backend", "reqwest-default-tls"]
 
 curl-backend = ["curl"]
 reqwest-backend = ["reqwest", "env_proxy", "lazy_static"]
 reqwest-default-tls = ["reqwest/default-tls"]
-reqwest-rustls-tls = ["reqwest/rustls-tls-native-roots"]
 
 [dependencies]
 anyhow.workspace = true
