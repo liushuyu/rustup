@@ -199,6 +199,7 @@ export PATH="$HOME/apple/bin"
     }
 
     #[test]
+    #[cfg(not(feature = "no-self-update"))]
     fn uninstall_removes_source_from_rcs() {
         clitools::test(Scenario::Empty, &|config| {
             let rcs: Vec<PathBuf> = [
@@ -265,6 +266,7 @@ export PATH="$HOME/apple/bin"
     }
 
     #[test]
+    #[cfg(not(feature = "no-self-update"))]
     fn uninstall_cleans_up_legacy_paths() {
         clitools::test(Scenario::Empty, &|config| {
             // Install first, then overwrite.
@@ -307,6 +309,7 @@ export PATH="$HOME/apple/bin"
     // In the default case we want to write $HOME/.cargo/bin as the path,
     // not the full path.
     #[test]
+    #[cfg(not(feature = "no-self-update"))]
     fn when_cargo_home_is_the_default_write_path_specially() {
         clitools::test(Scenario::Empty, &|config| {
             // Override the test harness so that cargo home looks like

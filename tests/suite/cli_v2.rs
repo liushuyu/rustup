@@ -1248,6 +1248,7 @@ fn install_with_component_and_target() {
 }
 
 #[test]
+#[cfg(not(feature = "no-self-update"))]
 fn test_warn_if_complete_profile_is_used() {
     setup(&|config| {
         config.expect_ok(&["rustup", "set", "auto-self-update", "enable"]);
@@ -1260,7 +1261,7 @@ fn test_warn_if_complete_profile_is_used() {
                 "complete",
                 "stable",
             ],
-            "warning: downloading with complete profile",
+            "warning: downloading with complete profile isn't recommended",
         );
     });
 }

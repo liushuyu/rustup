@@ -19,10 +19,10 @@ use rustup::test::const_dist_dir;
 use url::Url;
 
 use rustup::cli::rustup_mode;
-use rustup::currentprocess;
 use rustup::test as rustup_test;
 use rustup::test::this_host_triple;
 use rustup::utils::{raw, utils};
+use rustup::{currentprocess, get_output_trailer};
 
 use crate::mock::dist::{
     change_channel_date, ManifestVersion, MockChannel, MockComponent, MockDistServer, MockPackage,
@@ -332,6 +332,7 @@ fn create_local_update_server(self_dist: &Path, exedir: &Path, version: &str) ->
     root_url
 }
 
+#[cfg(not(feature = "no-self-update"))]
 pub fn self_update_setup(f: &dyn Fn(&mut Config, &Path), version: &str) {
     test(Scenario::SimpleV2, &|config| {
         // Create a mock self-update server
@@ -579,11 +580,15 @@ impl Config {
 
     pub fn expect_ok_ex(&mut self, args: &[&str], stdout: &str, stderr: &str) {
         let out = self.run(args[0], &args[1..], &[]);
+        let mut stderr = stderr.to_string();
+        if out.stderr != stderr {
+            stderr = format!("{}\n{}", stderr.trim_end(), get_output_trailer!());
+        }
         if !out.ok || out.stdout != stdout || out.stderr != stderr {
             print_command(args, &out);
             println!("expected.ok: true");
             print_indented("expected.stdout", stdout);
-            print_indented("expected.stderr", stderr);
+            print_indented("expected.stderr", &stderr);
             dbg!(out.stdout == stdout);
             dbg!(out.stderr == stderr);
             panic!();

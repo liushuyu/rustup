@@ -41,6 +41,7 @@ info: default toolchain set to 'nightly-{0}'
 }
 
 #[test]
+#[cfg(not(feature = "no-self-update"))]
 fn update_once_and_check_self_update() {
     let test_version = "2.0.0";
     test(&|config| {
@@ -82,6 +83,7 @@ info: installing component 'rustc'
 }
 
 #[test]
+#[cfg(not(feature = "no-self-update"))]
 fn update_once_and_self_update() {
     let test_version = "2.0.0";
 

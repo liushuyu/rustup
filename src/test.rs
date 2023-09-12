@@ -169,6 +169,19 @@ macro_rules! for_host {
     };
 }
 
+#[macro_export]
+macro_rules! get_output_trailer {
+    () => {
+        if cfg!(feature = "no-self-update") {
+            "info: self-update is disabled for this build of rustup
+info: any updates to rustup will need to be fetched with your system package manager
+"
+        } else {
+            "\n"
+        }
+    };
+}
+
 #[derive(Clone)]
 /// The smallest form of test isolation: an isolated RUSTUP_HOME, for codepaths
 /// that read and write config files but do not invoke processes, download data
